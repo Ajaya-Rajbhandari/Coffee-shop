@@ -90,20 +90,24 @@ class ShoppingListWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = shoppingList.cartItems[index];
               return Card(
+                color: Colors.transparent, // Set background to transparent
                 margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: ListTile(
                   leading: Image.asset(item['image'],
                       width: 50, height: 50), // Display item image
                   title: Text(
                     item['name'],
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        color: Colors.white), // Change text color to white
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Price: \$${item['price']}',
-                        style: TextStyle(color: Colors.white70),
+                        style: TextStyle(
+                            color: Colors
+                                .white70), // Change subtitle color for visibility
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,7 +122,9 @@ class ShoppingListWidget extends StatelessWidget {
                               ),
                               Text(
                                 '${item['quantity']}',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: Colors
+                                        .white), // Change quantity text color to white
                               ),
                               IconButton(
                                 icon: Icon(Icons.add, color: Colors.white),
@@ -128,9 +134,18 @@ class ShoppingListWidget extends StatelessWidget {
                               ),
                             ],
                           ),
+                          IconButton(
+                            icon: Icon(Icons.delete,
+                                color: Colors.red), // Delete button
+                            onPressed: () {
+                              shoppingList.deleteItem(index);
+                            },
+                          ),
                           Text(
                             'Total: \$${(item['price'] * item['quantity']).toStringAsFixed(2)}',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: Colors
+                                    .white), // Change total text color to white
                           ),
                         ],
                       ),
@@ -143,16 +158,19 @@ class ShoppingListWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Total Cost: \$${shoppingList.calculateTotal().toStringAsFixed(2)}',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             onPressed: () {
               // Logic to add a new item
             },
             child: Text('Add Item'),
           ),
-        ),
-        Text(
-          'Total Cost: \$${shoppingList.calculateTotal().toStringAsFixed(2)}',
-          style: TextStyle(color: Colors.white, fontSize: 20),
         ),
       ],
     );
