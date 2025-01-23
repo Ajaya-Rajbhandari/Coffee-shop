@@ -6,7 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ShoppingList shoppingList = ShoppingList(); // Create an instance of ShoppingList
+    ShoppingList shoppingList =
+        ShoppingList(); // Create an instance of ShoppingList
+
+    // Define the addFavorite function
+    void addFavorite(Map<String, dynamic> item) {
+      print('Added to favorites: ${item['name']}');
+    }
 
     return Material(
       child: Container(
@@ -44,7 +50,12 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen(shoppingList: shoppingList), // Pass ShoppingList instance
+                            builder: (context) => HomeScreen(
+                              shoppingList:
+                                  shoppingList, // Pass ShoppingList instance
+                              addFavorite:
+                                  addFavorite, // Pass addFavorite function
+                            ),
                           ));
                     },
                     child: Container(

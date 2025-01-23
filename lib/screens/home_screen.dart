@@ -3,12 +3,15 @@ import 'package:flutter_application_1/screens/notification_screen.dart';
 import 'package:flutter_application_1/widgets/home_bottom_bar.dart';
 import 'package:flutter_application_1/widgets/items_widget.dart';
 import 'package:flutter_application_1/screens/shopping_list.dart'; // Import ShoppingList
+import 'package:flutter_application_1/screens/favorite_screen.dart'; // Import FavoriteScreen
 
 class HomeScreen extends StatefulWidget {
   final ShoppingList shoppingList; // Add ShoppingList reference
+  final Function(Map<String, dynamic>) addFavorite; // Add addFavorite reference
 
   HomeScreen(
-      {required this.shoppingList}); // Constructor to accept ShoppingList
+      {required this.shoppingList,
+      required this.addFavorite}); // Constructor to accept ShoppingList and addFavorite
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -81,6 +84,11 @@ class _HomeScreenState extends State<HomeScreen>
         duration: Duration(seconds: 2),
       ),
     );
+  }
+
+  void addFavorite(Map<String, dynamic> item) {
+    // Call the addFavorite function passed from WelcomeScreen
+    widget.addFavorite(item);
   }
 
   @override
@@ -183,13 +191,20 @@ class _HomeScreenState extends State<HomeScreen>
                 child: [
                   ItemsWidget(
                       addToCart: addToCart,
-                      notifyAddToCart: notifyAddToCart), // Pass both functions
+                      notifyAddToCart: notifyAddToCart,
+                      addFavorite: addFavorite), // Pass addFavorite
                   ItemsWidget(
-                      addToCart: addToCart, notifyAddToCart: notifyAddToCart),
+                      addToCart: addToCart,
+                      notifyAddToCart: notifyAddToCart,
+                      addFavorite: addFavorite), // Pass addFavorite
                   ItemsWidget(
-                      addToCart: addToCart, notifyAddToCart: notifyAddToCart),
+                      addToCart: addToCart,
+                      notifyAddToCart: notifyAddToCart,
+                      addFavorite: addFavorite), // Pass addFavorite
                   ItemsWidget(
-                      addToCart: addToCart, notifyAddToCart: notifyAddToCart),
+                      addToCart: addToCart,
+                      notifyAddToCart: notifyAddToCart,
+                      addFavorite: addFavorite), // Pass addFavorite
                 ][_tabController.index],
               )
             ],

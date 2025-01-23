@@ -178,9 +178,10 @@ class _ShoppingListWidgetState extends State<ShoppingListWidget> {
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             onPressed: () {
-              // Logic to add a new item
+              // Logic for payment processing
+              print("Proceeding to payment...");
             },
-            child: Text('Add Item'),
+            child: Text('Pay Now'),
           ),
         ),
       ],

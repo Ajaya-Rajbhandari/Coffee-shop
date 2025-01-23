@@ -6,8 +6,13 @@ import 'package:flutter_application_1/screens/single_item_screen.dart';
 class ItemsWidget extends StatelessWidget {
   final Function(String, String, double) addToCart; // Add this line
   final Function(String) notifyAddToCart; // Add this line for notification
+  final Function(Map<String, dynamic>)
+      addFavorite; // Add this line for adding to favorites
 
-  ItemsWidget({required this.addToCart, required this.notifyAddToCart}); // Modify constructor to accept notifyAddToCart
+  ItemsWidget(
+      {required this.addToCart,
+      required this.notifyAddToCart,
+      required this.addFavorite}); // Modify constructor to accept addFavorite
 
   List<String> img = [
     'Latte',
@@ -31,7 +36,7 @@ class ItemsWidget extends StatelessWidget {
       shrinkWrap: true,
       childAspectRatio: (150 / 195),
       children: [
-        for (int i = 0; i < img.length; i++) 
+        for (int i = 0; i < img.length; i++)
           Container(
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             margin: EdgeInsets.symmetric(vertical: 3, horizontal: 13),
@@ -55,10 +60,15 @@ class ItemsWidget extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => SingleItemScreen(
                           itemName: img[i], // Pass the item name
-                          itemImage: "images/${img[i]}.png", // Pass the image path
-                          itemPrice: prices[i].toString(), // Convert double to String
+                          itemImage:
+                              "images/${img[i]}.png", // Pass the image path
+                          itemPrice:
+                              prices[i].toString(), // Convert double to String
                           addToCart: addToCart, // Pass the addToCart function
-                          notifyAddToCart: notifyAddToCart, // Pass the notifyAddToCart function
+                          notifyAddToCart:
+                              notifyAddToCart, // Pass the notifyAddToCart function
+                          addFavorite:
+                              addFavorite, // Pass the addFavorite function
                         ),
                       ),
                     );

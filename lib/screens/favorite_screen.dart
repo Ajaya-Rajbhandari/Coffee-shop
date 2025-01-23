@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/single_item_screen.dart'; // Import SingleItemScreen
 
 class FavoriteScreen extends StatefulWidget {
   @override
@@ -30,6 +31,26 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     setState(() {
       favoriteItems.removeAt(index);
     });
+  }
+
+  void navigateToSingleItemScreen(Map<String, dynamic> item) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SingleItemScreen(
+          itemName: item['name'],
+          itemImage: item['image'],
+          itemPrice: item['price'].toString(),
+          addToCart: (name, image, price) {
+            // Implement add to cart logic if needed
+          },
+          notifyAddToCart: (message) {
+            // Implement notification logic if needed
+          },
+          addFavorite: addFavorite, // Pass addFavorite function
+        ),
+      ),
+    );
   }
 
   @override
@@ -65,23 +86,27 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 itemCount: favoriteItems.length,
                 itemBuilder: (context, index) {
                   final item = favoriteItems[index];
-                  return Card(
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: ListTile(
-                      leading: Image.asset(item['image']),
-                      title: Text(
-                        item['name'],
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      subtitle: Text(
-                        '\$${item['price'].toStringAsFixed(2)}',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.remove_circle, color: Colors.red),
-                        onPressed: () {
-                          removeFavorite(index);
-                        },
+                  return GestureDetector(
+                    onTap: () =>
+                        navigateToSingleItemScreen(item), // Navigate on tap
+                    child: Card(
+                      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      child: ListTile(
+                        leading: Image.asset(item['image']),
+                        title: Text(
+                          item['name'],
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        subtitle: Text(
+                          '\$${item['price'].toStringAsFixed(2)}',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.remove_circle, color: Colors.red),
+                          onPressed: () {
+                            removeFavorite(index);
+                          },
+                        ),
                       ),
                     ),
                   );

@@ -8,6 +8,7 @@ class SingleItemScreen extends StatefulWidget {
   final String itemPrice;
   final Function(String, String, double) addToCart;
   final Function(String) notifyAddToCart; // Add notification function
+  final Function(Map<String, dynamic>) addFavorite; // Add favorite function
 
   SingleItemScreen({
     Key? key,
@@ -16,6 +17,7 @@ class SingleItemScreen extends StatefulWidget {
     required this.itemPrice,
     required this.addToCart,
     required this.notifyAddToCart, // Accept notification function
+    required this.addFavorite, // Accept add favorite function
   }) : super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class SingleItemScreen extends StatefulWidget {
 
 class _SingleItemScreenState extends State<SingleItemScreen> {
   int quantity = 1; // Initialize quantity
+  bool isFavorite = false; // Track favorite state
 
   void increment() {
     setState(() {
@@ -35,6 +38,19 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
     setState(() {
       if (quantity > 1) {
         quantity--;
+      }
+    });
+  }
+
+  void toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite; // Toggle favorite state
+      if (isFavorite) {
+        widget.addFavorite({
+          'name': widget.itemName,
+          'image': widget.itemImage,
+          'price': double.parse(widget.itemPrice),
+        });
       }
     });
   }
@@ -186,9 +202,13 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                widget.addToCart(widget.itemName, widget.itemImage, double.parse(widget.itemPrice) * quantity); // Use current quantity
-                                widget.notifyAddToCart("Added '${widget.itemName}' to cart."); // Notify user for add to cart
-
+                                widget.addToCart(
+                                    widget.itemName,
+                                    widget.itemImage,
+                                    double.parse(widget.itemPrice) *
+                                        quantity); // Use current quantity
+                                widget.notifyAddToCart(
+                                    "Added '${widget.itemName}' to cart."); // Notify user for add to cart
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -208,18 +228,16 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
-                                // Notify user for favorite
-                                widget.notifyAddToCart("Added '${widget.itemName}' to favorites."); // Notify user for favorite
-
-                              },
+                              onTap: toggleFavorite,
                               child: Container(
                                 padding: EdgeInsets.all(20),
                                 decoration: BoxDecoration(
                                     color: Color(0xFFE57734),
                                     borderRadius: BorderRadius.circular(18)),
                                 child: Icon(
-                                  Icons.favorite_outline,
+                                  isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_outline,
                                   color: Colors.white,
                                 ),
                               ),
