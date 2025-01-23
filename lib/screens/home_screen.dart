@@ -3,7 +3,7 @@ import 'package:flutter_application_1/screens/notification_screen.dart';
 import 'package:flutter_application_1/widgets/home_bottom_bar.dart';
 import 'package:flutter_application_1/widgets/items_widget.dart';
 import 'package:flutter_application_1/screens/shopping_list.dart'; // Import ShoppingList
-import 'package:flutter_application_1/screens/favorite_screen.dart'; // Import FavoriteScreen
+// Import FavoriteScreen
 
 class HomeScreen extends StatefulWidget {
   final ShoppingList shoppingList; // Add ShoppingList reference
