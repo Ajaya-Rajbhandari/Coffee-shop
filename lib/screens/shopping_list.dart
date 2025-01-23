@@ -75,20 +75,25 @@ class ShoppingList {
   }
 }
 
-class ShoppingListWidget extends StatelessWidget {
+class ShoppingListWidget extends StatefulWidget {
   final ShoppingList shoppingList;
 
   ShoppingListWidget({required this.shoppingList});
 
+  @override
+  _ShoppingListWidgetState createState() => _ShoppingListWidgetState();
+}
+
+class _ShoppingListWidgetState extends State<ShoppingListWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: shoppingList.cartItems.length,
+            itemCount: widget.shoppingList.cartItems.length,
             itemBuilder: (context, index) {
-              final item = shoppingList.cartItems[index];
+              final item = widget.shoppingList.cartItems[index];
               return Card(
                 color: Colors.transparent, // Set background to transparent
                 margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -117,7 +122,9 @@ class ShoppingListWidget extends StatelessWidget {
                               IconButton(
                                 icon: Icon(Icons.remove, color: Colors.white),
                                 onPressed: () {
-                                  shoppingList.decreaseQuantity(index);
+                                  setState(() {
+                                    widget.shoppingList.decreaseQuantity(index);
+                                  });
                                 },
                               ),
                               Text(
@@ -129,7 +136,9 @@ class ShoppingListWidget extends StatelessWidget {
                               IconButton(
                                 icon: Icon(Icons.add, color: Colors.white),
                                 onPressed: () {
-                                  shoppingList.increaseQuantity(index);
+                                  setState(() {
+                                    widget.shoppingList.increaseQuantity(index);
+                                  });
                                 },
                               ),
                             ],
@@ -138,7 +147,9 @@ class ShoppingListWidget extends StatelessWidget {
                             icon: Icon(Icons.delete,
                                 color: Colors.red), // Delete button
                             onPressed: () {
-                              shoppingList.deleteItem(index);
+                              setState(() {
+                                widget.shoppingList.deleteItem(index);
+                              });
                             },
                           ),
                           Text(
@@ -159,7 +170,7 @@ class ShoppingListWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Total Cost: \$${shoppingList.calculateTotal().toStringAsFixed(2)}',
+            'Total Cost: \$${widget.shoppingList.calculateTotal().toStringAsFixed(2)}',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
