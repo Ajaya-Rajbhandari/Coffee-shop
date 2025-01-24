@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/notification_screen.dart';
-import 'package:flutter_application_1/widgets/home_bottom_bar.dart';
-import 'package:flutter_application_1/widgets/items_widget.dart';
-import 'package:flutter_application_1/screens/shopping_list.dart'; // Import ShoppingList
-// Import FavoriteScreen
+import 'package:coffee_shop/screens/notification_screen.dart'; // Updated import
+import 'package:coffee_shop/widgets/home_bottom_bar.dart'; // Updated import
+import 'package:coffee_shop/widgets/items_widget.dart'; // Updated import
+import 'package:coffee_shop/screens/shopping_list.dart'; // Updated import
 
 class HomeScreen extends StatefulWidget {
   final ShoppingList shoppingList; // Add ShoppingList reference
   final Function(Map<String, dynamic>) addFavorite; // Add addFavorite reference
+  final String userName; // Add userName reference
+  final String userAddress; // Add userAddress reference
+  final String profilePicturePath; // Add profilePicturePath reference
 
-  HomeScreen(
-      {required this.shoppingList,
-      required this.addFavorite}); // Constructor to accept ShoppingList and addFavorite
+  HomeScreen({
+    required this.shoppingList,
+    required this.addFavorite,
+    required this.userName, // Accept userName
+    required this.userAddress, // Accept userAddress
+    required this.profilePicturePath, // Accept profilePicturePath
+  }); // Constructor to accept ShoppingList and addFavorite
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -212,7 +218,11 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       bottomNavigationBar: HomeBottomBar(
-          shoppingList: widget.shoppingList), // Pass ShoppingList instance
+        shoppingList: widget.shoppingList, // Pass ShoppingList instance
+        userName: "User's Name", // Replace with actual user name
+        userAddress: "User's Address", // Replace with actual user address
+        profilePicturePath: "images/man.png", // Replace with actual image path
+      ),
     );
   }
 }

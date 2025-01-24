@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/single_item_screen.dart'; // Import SingleItemScreen
+import 'package:coffee_shop/screens/single_item_screen.dart'; // Updated import
 
 class FavoriteScreen extends StatefulWidget {
   @override

@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/favorite_screen.dart';
-import 'package:flutter_application_1/screens/profile_screen.dart';
-import 'package:flutter_application_1/screens/shopping_list.dart'; // Import ShoppingList
-import 'package:flutter_application_1/screens/welcome_screen.dart';
+import 'package:coffee_shop/screens/favorite_screen.dart'; // Updated import
+import 'package:coffee_shop/screens/profile_screen.dart'; // Updated import
+import 'package:coffee_shop/screens/shopping_list.dart'; // Updated import
+import 'package:coffee_shop/screens/welcome_screen.dart'; // Updated import
 
 class HomeBottomBar extends StatelessWidget {
   final ShoppingList shoppingList; // Add ShoppingList reference
+  final String userName; // Add userName reference
+  final String userAddress; // Add userAddress reference
+  final String profilePicturePath; // Add profilePicturePath reference
 
-  HomeBottomBar(
-      {required this.shoppingList}); // Constructor to accept ShoppingList
+  HomeBottomBar({
+    required this.shoppingList,
+    required this.userName,
+    required this.userAddress,
+    required this.profilePicturePath,
+  }); // Constructor to accept ShoppingList and user details
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +75,17 @@ class HomeBottomBar extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(
+                    userName: userName, // Pass userName
+                    userAddress: userAddress, // Pass userAddress
+                    profilePicturePath:
+                        profilePicturePath, // Pass profilePicturePath
+                  ),
+                ),
+              );
             },
             child: Icon(
               Icons.person,

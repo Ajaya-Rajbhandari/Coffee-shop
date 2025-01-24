@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final String userName = "John Doe"; // Example name
-  final String userAddress = "123 Main St, Springfield"; // Example address
-  final String profilePicturePath = "images/Latte.png"; // Local image path
+  final String userName;
+  final String userAddress;
+  final String profilePicturePath;
+
+  ProfileScreen({
+    required this.userName,
+    required this.userAddress,
+    required this.profilePicturePath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +25,16 @@ class ProfileScreen extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage(profilePicturePath), // Use local image
+              backgroundImage:
+                  AssetImage(profilePicturePath), // Use local image
             ),
             SizedBox(height: 16),
             Text(
               userName,
-              style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 8),

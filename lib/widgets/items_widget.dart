@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/single_item_screen.dart';
+import 'package:coffee_shop/screens/single_item_screen.dart'; // Updated import
 
 // ignore: must_be_immutable
 class ItemsWidget extends StatelessWidget {
